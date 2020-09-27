@@ -1,3 +1,11 @@
+![Gordae Logo](/images/logo.png)
+
+# Info
+
+* Version **1.0**
+* Python Version **3.8.2**
+* Recommended IDE **Pycharm**
+
 # Requirements
 
 * Python 3.7 Or Newer.
