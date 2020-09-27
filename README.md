@@ -1,7 +1,11 @@
-# Important
+# Requirements
 
-Gordae's New OS,
-We Are Not Working On CaneOS Anymore, We Have Moved CaneOS to Glint.
+* Python 3.7 Or Newer.
+* colorama
+* Pycharm
+* 1.2 GB of Disk Space.
+* 1 GB of RAM.
+
 
 # How To Install
 
