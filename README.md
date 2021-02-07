@@ -2,7 +2,7 @@
 
 # Info
 
-Glint Is A OS Developed With Cosmos, It Is A DOS That Is Designed For Home Users.
+Glint Is A OS Developed With Cosmos.
 
 # How To Install
 
