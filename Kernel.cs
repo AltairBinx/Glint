@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Sys = Cosmos.System;
@@ -9,41 +9,45 @@ namespace Glint
     public class Kernel : Sys.Kernel
     {
 
-        string version = "2.1";
+        string version = "2.2";
+        //string stop;
+        //string bootstop;
 
         protected override void BeforeRun()
         {
-            Console.WriteLine("Kernel Is Loaded, Starting Glint...");
-            Console.WriteLine("Glint " + version + " Is Starting...");
-            Console.Write("Starting Sound...   ");
-            Cosmos.System.PCSpeaker.Beep(500); // Beeps At You To Let You Know That Sound Is Working.
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write("[OK]\n");
-            Console.ForegroundColor = ConsoleColor.White;
-
-            Console.WriteLine("Press Any Key To Start Glint.");
-            Console.ReadKey();
-
-            Console.WriteLine("Starting GUI...");
-            Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Blue;
-            Console.ForegroundColor = ConsoleColor.White;
-            Sys.PCSpeaker.Beep(800);
-            Console.Write("+----------------------------------Glint---------------------------------------+");
-            Console.Write("+                                HELP MENU                                     +");
-            Console.Write("+                                                                              +");
-            Console.Write("+                              about - About                                   +");
-            Console.Write("+                            cmd - Start Again                                 +");
-            Console.Write("+                           shutdown - Shutdown                                +");
-            Console.Write("+                             reboot - Reboot                                  +");
-            Console.Write("+                              edit - Editor                                   +");
-            Console.Write("+                           programs - Programs                                +");
-            Console.Write("+                            info - Just Info.                                 +");
-            Console.Write("+----------------------------------Glint---------------------------------------+");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
+            try {
+                Console.WriteLine("Kernel Is Loaded, Starting Glint...");
+                Console.WriteLine("Glint " + version + " Is Starting...   ");
+                try { HAL.Bootstrap.Init(); } catch
+                {
+                    // string bootstop = "B";
+                }
+                Console.WriteLine("Current Time: " + HAL.RTC.Hour + ":" + HAL.RTC.Minute + ":" + HAL.RTC.Second);
+                Console.WriteLine("Starting GUI...");
+                Console.Clear();
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.White;
+                Sys.PCSpeaker.Beep(800);
+                Console.Write("+----------------------------------Glint---------------------------------------+");
+                Console.Write("+                                HELP MENU                                     +");
+                Console.Write("+                                                                              +");
+                Console.Write("+                              about - About                                   +");
+                Console.Write("+                            cmd - Start Again                                 +");
+                Console.Write("+                           shutdown - Shutdown                                +");
+                Console.Write("+                             reboot - Reboot                                  +");
+                Console.Write("+                              edit - Editor                                   +");
+                Console.Write("+                           programs - Programs                                +");
+                Console.Write("+                            info - Just Info.                                 +");
+                Console.Write("+                           time - Current Time                                +");
+                Console.Write("+                              sleep - Sleep                                   +");
+                Console.Write("+----------------------------------Glint---------------------------------------+");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+            } catch
+            {
+                // string stop = "BOOT_FAULT";
+            }
         }
-
         protected override void Run()
         {
             try {
@@ -56,7 +60,6 @@ namespace Glint
                     Console.Clear();
                     Console.BackgroundColor = ConsoleColor.Blue;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Sys.PCSpeaker.Beep(800);
                     Console.Write("+----------------------------------Glint---------------------------------------+");
                     Console.Write("+                                HELP MENU                                     +");
                     Console.Write("+                                                                              +");
@@ -67,6 +70,8 @@ namespace Glint
                     Console.Write("+                              edit - Editor                                   +");
                     Console.Write("+                           programs - Programs                                +");
                     Console.Write("+                            info - Just Info.                                 +");
+                    Console.Write("+                           time - Current Time                                +");
+                    Console.Write("+                              sleep - Sleep                                   +");
                     Console.Write("+----------------------------------Glint---------------------------------------+");
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
@@ -99,12 +104,12 @@ namespace Glint
                     Console.Clear();
                     Console.Write("+----------------------------------EDIT----------------------------------------+");
                     var text = Console.ReadLine();
+
                     Console.WriteLine("Starting GUI...");
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Clear();
                     Console.BackgroundColor = ConsoleColor.Blue;
-                    Sys.PCSpeaker.Beep(800);
                     Console.Write("+----------------------------------Glint---------------------------------------+");
                     Console.Write("+                                HELP MENU                                     +");
                     Console.Write("+                                                                              +");
@@ -115,6 +120,8 @@ namespace Glint
                     Console.Write("+                              edit - Editor                                   +");
                     Console.Write("+                           programs - Programs                                +");
                     Console.Write("+                            info - Just Info.                                 +");
+                    Console.Write("+                           time - Current Time                                +");
+                    Console.Write("+                              sleep - Sleep                                   +");
                     Console.Write("+----------------------------------Glint---------------------------------------+");
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
@@ -149,29 +156,65 @@ namespace Glint
                     }
                 }
 
-                else if (command == "info")
+                else if(command == "info")
                 {
+
                     Console.WriteLine("Here Is Info, OK?");
                     Console.WriteLine("\nMonitor: " + Console.WindowWidth + "x" + Console.WindowHeight + " Standard VGA Monitor.");
                     Console.WriteLine("Keyboard: Random Keyboard");
+                }
+                
+                else if(command == "time") {
+                    Console.WriteLine("Current Time: " + HAL.RTC.Hour + ":" + HAL.RTC.Minute + ":" + HAL.RTC.Second);
+                }
+
+                else if(command == "sleep")
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.Write("\n\n\n\n\n           The OS is still running, Press Any Key To Exit Sleep Mode.           ");
+                    Console.Write("\n\n\n\n\n                                      ");
+                    Console.ReadKey();
+                    Console.WriteLine("Starting GUI...");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Clear();
+                    Sys.PCSpeaker.Beep(800);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write("+----------------------------------Glint---------------------------------------+");
+                    Console.Write("+                                HELP MENU                                     +");
+                    Console.Write("+                                                                              +");
+                    Console.Write("+                              about - About                                   +");
+                    Console.Write("+                            cmd - Start Again                                 +");
+                    Console.Write("+                           shutdown - Shutdown                                +");
+                    Console.Write("+                             reboot - Reboot                                  +");
+                    Console.Write("+                              edit - Editor                                   +");
+                    Console.Write("+                           programs - Programs                                +");
+                    Console.Write("+                            info - Just Info.                                 +");
+                    Console.Write("+                           time - Current Time                                +");
+                    Console.Write("+                              sleep - Sleep                                   +");
+                    Console.Write("+----------------------------------Glint---------------------------------------+");
+                    Console.BackgroundColor = ConsoleColor.Black;
                 }
 
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Not A Valid Command.");
+                    Console.WriteLine("'" + command + "' Is Not A Valid Command, File, Or Disk.");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-            } catch
+            } catch(Exception e)
             {
-                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
                 Sys.PCSpeaker.Beep(200);
                 Console.Clear();
-                Console.WriteLine("\n\n\n\n\n\n\n\n\n");
-                Console.Write("                                  !GLINT!                                       ");
-                Console.Write(" Your Computer Was About To Crash, So We Shut Down Glint To Prevent Any Damage. ");
-                Console.Write("     Please Turn Off Your Computer And Turn It Back On. If This Continues,      ");
-                Console.Write("          Contact Your System Administrator Or Mail Gordae Support.             ");
+                Console.WriteLine("Your Computer Was About To Crash, So We Shut Down Glint To Prevent Damage.");
+                Console.WriteLine("\nTry To Restart The Computer. If This Continues, This Can Be A");
+                Console.WriteLine("Disk Error. Verify The DVD/CD With An ISO, Make A New Disk, ");
+                Console.WriteLine("Or Reinstall Glint On Your Device.");
+                Console.WriteLine("\n\n\n" + e.Message);
+                Console.WriteLine("\nRefer To The Manual, Or Contact Your System Admin.");
+                Console.CursorVisible = false;
                 Console.ReadKey();
                 HAL.Power.CPUReboot();
             }
