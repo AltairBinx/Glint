@@ -78,13 +78,13 @@ namespace Glint
                     Console.Write("+                            cmd - Start Again                                 +");
                     Console.Write("+                              edit - Editor                                   +");
                     Console.Write("+                           programs - Programs                                +");
-                    Console.Write("+                            info - Just Info.                                 +");
+                    Console.Write("+                            info - Information.                                 +");
                     Console.Write("+                           time - Current Time                                +");
                     Console.Write("+                          power - Power Options                               +");
                     Console.Write("+                              dir - DirList                                   +");
                     Console.Write("+                         readfile - Read A File.                              +");
-                    Console.Write("+                          mkfile - Make A File.                               +");
-                    Console.Write("+                          mkdir - Make A Folder                               +");
+                    Console.Write("+                          mkfile - New File.                               +");
+                    Console.Write("+                          mkdir - New Folder                               +");
                     Console.Write("+                        gotodir - Go To a Folder.                             +");
                     Console.Write("+----------------------------------Glint---------------------------------------+");
                     Console.BackgroundColor = ConsoleColor.Black;
